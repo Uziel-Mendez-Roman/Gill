@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ley de Ohm y Potencia</title>
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .navigation {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .navigation button {
+      background-color: #007bff;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .navigation button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navigation">
+    <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+  </div>
+
+  <div class="container">
+    <h1>Ley de Ohm y Potencia</h1>
+    
+    <label for="seleccion">Selecciona qué quieres calcular:</label>
+    <select id="seleccion" onchange="mostrarFormulario()">
+      <option value="">--Selecciona--</option>
+      <option value="resistencia">Resistencia (R)</option>
+      <option value="corriente">Corriente (I)</option>
+      <option value="potencia">Potencia (P)</option>
+    </select>
+
+    <div id="formulario"></div>
+    <p id="resultado"></p>
+  </div>
+
+  <script>
+    function mostrarFormulario() {
+      const seleccion = document.getElementById("seleccion").value;
+      const form = document.getElementById("formulario");
+      form.innerHTML = "";
+      document.getElementById("resultado").innerText = "";
+
+      if (seleccion === "resistencia") {
+        form.innerHTML = `
+          <label for="voltaje">Voltaje (V):</label>
+          <input type="number" id="voltaje">
+          <label for="corriente">Corriente (I):</label>
+          <input type="number" id="corriente">
+          <button onclick="calcularResistencia()">Calcular Resistencia</button>
+        `;
+      } else if (seleccion === "corriente") {
+        form.innerHTML = `
+          <label for="voltaje">Voltaje (V):</label>
+          <input type="number" id="voltaje">
+          <label for="resistencia">Resistencia (Ω):</label>
+          <input type="number" id="resistencia">
+          <button onclick="calcularCorriente()">Calcular Corriente</button>
+        `;
+      } else if (seleccion === "potencia") {
+        form.innerHTML = `
+          <label for="voltaje">Voltaje (V):</label>
+          <input type="number" id="voltaje">
+          <label for="corriente">Corriente (I):</label>
+          <input type="number" id="corriente">
+          <button onclick="calcularPotencia()">Calcular Potencia</button>
+        `;
+      }
+    }
+
+    function calcularResistencia() {
+      const V = parseFloat(document.getElementById("voltaje").value);
+      const I = parseFloat(document.getElementById("corriente").value);
+      if (I === 0) {
+        document.getElementById("resultado").innerText = "La corriente no puede ser cero.";
+        return;
+      }
+      const R = V / I;
+      document.getElementById("resultado").innerText = `Resistencia: ${R.toFixed(3)} Ω`;
+    }
+
+    function calcularCorriente() {
+      const V = parseFloat(document.getElementById("voltaje").value);
+      const R = parseFloat(document.getElementById("resistencia").value);
+      if (R === 0) {
+        document.getElementById("resultado").innerText = "La resistencia no puede ser cero.";
+        return;
+      }
+      const I = V / R;
+      document.getElementById("resultado").innerText = `Corriente: ${I.toFixed(3)} A`;
+    }
+
+    function calcularPotencia() {
+      const V = parseFloat(document.getElementById("voltaje").value);
+      const I = parseFloat(document.getElementById("corriente").value);
+      const P = V * I;
+      document.getElementById("resultado").innerText = `Potencia: ${P.toFixed(3)} W`;
+    }
+  </script>
+
+</body>
+</html>

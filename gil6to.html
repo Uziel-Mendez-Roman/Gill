@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Fórmulas</title>
+    <link rel="stylesheet" href="formula1/formula1.css">
+</head>
+<body>
+    <div class="navigation">
+        <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+    </div>
+
+    <div class="container">
+        <h2>Fisica</h2>
+
+        <label for="formulaSelect">Selecciona una fórmula:</label>
+        <select id="formulaSelect" onchange="mostrarInputs()">
+            <option value="">--Selecciona--</option>
+            <option value="T1">T = 2π√(L/g)</option>
+            <option value="L">L = (gT²)/(4π²)</option>
+            <option value="T2">T = 2πr/V</option>
+            <option value="T3">T = 2π√(x/a)</option>
+            <option value="a">a = V²/r</option>
+            <option value="v">v = 2π/T</option>
+            <option value="T4">T = 2π√(m/k)</option>
+            <option value="f">f = 1/T</option>
+            <option value="k">k = mg/x</option>
+            <option value="V">V = √(F/M) = √(F/(m/l))</option>
+        </select>
+
+        <div id="inputsContainer"></div>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        const g = 9.81;  // Valor de la gravedad (aceleración debido a la gravedad en m/s²)
+
+        function mostrarInputs() {
+            const seleccion = document.getElementById("formulaSelect").value;
+            const container = document.getElementById("inputsContainer");
+            container.innerHTML = "";
+
+            let inputs = {
+                "T1": `<label for="L">L:</label>
+                        <input type="number" id="L">
+                        <label for="g">g:</label>
+                        <input type="number" id="g" value="${g}" readonly>
+                        <button onclick="calcularT1()">Calcular</button>` ,
+                "L": `<label for="T">T:</label>
+                       <input type="number" id="T">
+                       <label for="g">g:</label>
+                       <input type="number" id="g" value="${g}" readonly>
+                       <button onclick="calcularL()">Calcular</button>` ,
+                "T2": `<label for="r">r:</label>
+                        <input type="number" id="r">
+                        <label for="V">V:</label>
+                        <input type="number" id="V">
+                        <button onclick="calcularT2()">Calcular</button>` ,
+                "T3": `<label for="x">x:</label>
+                        <input type="number" id="x">
+                        <label for="a">a:</label>
+                        <input type="number" id="a">
+                        <button onclick="calcularT3()">Calcular</button>` ,
+                "a": `<label for="V">V:</label>
+                       <input type="number" id="V">
+                       <label for="r">r:</label>
+                       <input type="number" id="r">
+                       <button onclick="calcularA()">Calcular</button>` ,
+                "v": `<label for="T">T:</label>
+                       <input type="number" id="T">
+                       <button onclick="calcularV()">Calcular</button>` ,
+                "T4": `<label for="m">m:</label>
+                        <input type="number" id="m">
+                        <label for="k">k:</label>
+                        <input type="number" id="k">
+                        <button onclick="calcularT4()">Calcular</button>` ,
+                "f": `<label for="T">T:</label>
+                       <input type="number" id="T">
+                       <button onclick="calcularF()">Calcular</button>` ,
+                "k": `<label for="m">m:</label>
+                       <input type="number" id="m">
+                       <label for="g">g:</label>
+                       <input type="number" id="g" value="${g}" readonly>
+                       <label for="x">x:</label>
+                       <input type="number" id="x">
+                       <button onclick="calcularK()">Calcular</button>` ,
+                "V": `<label for="F">F:</label>
+                       <input type="number" id="F">
+                       <label for="M">M:</label>
+                       <input type="number" id="M">
+                       <label for="l">l:</label>
+                       <input type="number" id="l">
+                       <button onclick="calcularVFinal()">Calcular</button>`
+            };
+
+            container.innerHTML = inputs[seleccion] || "";
+        }
+
+        function calcularT1() {
+            let L = parseFloat(document.getElementById("L").value);
+            if (isNaN(L)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa un valor válido para L.";
+                return;
+            }
+            let resultado = 2 * Math.PI * Math.sqrt(L / g);
+            document.getElementById("resultado").innerText = "T = " + resultado;
+        }
+
+        function calcularL() {
+            let T = parseFloat(document.getElementById("T").value);
+            if (isNaN(T)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa un valor válido para T.";
+                return;
+            }
+            let resultado = (g * Math.pow(T, 2)) / (4 * Math.pow(Math.PI, 2));
+            document.getElementById("resultado").innerText = "L = " + resultado;
+        }
+
+        function calcularT2() {
+            let r = parseFloat(document.getElementById("r").value);
+            let V = parseFloat(document.getElementById("V").value);
+            if (isNaN(r) || isNaN(V)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa valores válidos para r y V.";
+                return;
+            }
+            let resultado = 2 * Math.PI * r / V;
+            document.getElementById("resultado").innerText = "T = " + resultado;
+        }
+
+        function calcularT3() {
+            let x = parseFloat(document.getElementById("x").value);
+            let a = parseFloat(document.getElementById("a").value);
+            if (isNaN(x) || isNaN(a)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa valores válidos para x y a.";
+                return;
+            }
+            let resultado = 2 * Math.PI * Math.sqrt(x / a);
+            document.getElementById("resultado").innerText = "T = " + resultado;
+        }
+
+        function calcularA() {
+            let V = parseFloat(document.getElementById("V").value);
+            let r = parseFloat(document.getElementById("r").value);
+            if (isNaN(V) || isNaN(r)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa valores válidos para V y r.";
+                return;
+            }
+            let resultado = Math.pow(V, 2) / r;
+            document.getElementById("resultado").innerText = "a = " + resultado;
+        }
+
+        function calcularV() {
+            let T = parseFloat(document.getElementById("T").value);
+            if (isNaN(T)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa un valor válido para T.";
+                return;
+            }
+            let resultado = 2 * Math.PI / T;
+            document.getElementById("resultado").innerText = "v = " + resultado;
+        }
+
+        function calcularT4() {
+            let m = parseFloat(document.getElementById("m").value);
+            let k = parseFloat(document.getElementById("k").value);
+            if (isNaN(m) || isNaN(k)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa valores válidos para m y k.";
+                return;
+            }
+            let resultado = 2 * Math.PI * Math.sqrt(m / k);
+            document.getElementById("resultado").innerText = "T = " + resultado;
+        }
+
+        function calcularF() {
+            let T = parseFloat(document.getElementById("T").value);
+            if (isNaN(T)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa un valor válido para T.";
+                return;
+            }
+            let resultado = 1 / T;
+            document.getElementById("resultado").innerText = "f = " + resultado;
+        }
+
+        function calcularK() {
+            let m = parseFloat(document.getElementById("m").value);
+            let x = parseFloat(document.getElementById("x").value);
+            if (isNaN(m) || isNaN(x)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa valores válidos para m y x.";
+                return;
+            }
+            let resultado = (m * g) / x;
+            document.getElementById("resultado").innerText = "k = " + resultado;
+        }
+
+        function calcularVFinal() {
+            let F = parseFloat(document.getElementById("F").value);
+            let M = parseFloat(document.getElementById("M").value);
+            let l = parseFloat(document.getElementById("l").value);
+            if (isNaN(F) || isNaN(M) || isNaN(l)) {
+                document.getElementById("resultado").innerText = "Por favor ingresa valores válidos para F, M y l.";
+                return;
+            }
+            let resultado = Math.sqrt(F / M);
+            document.getElementById("resultado").innerText = "V = " + resultado;
+        }
+    </script>
+</body>
+</html>

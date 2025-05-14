@@ -1,0 +1,158 @@
+/* Estilo general para el cuerpo de la página */
+body {
+    background-color: #f3f4f6; /* Color de fondo más suave */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+/* Contenedor principal con efecto de aparición */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    opacity: 0; /* Empieza invisible */
+    transform: translateY(20px); /* Empieza desplazado hacia abajo */
+    animation: fadeIn 1s forwards; /* Aplica la animación */
+}
+
+/* Animación fade-in */
+@keyframes fadeIn {
+    to {
+        opacity: 1; /* Se vuelve visible */
+        transform: translateY(0); /* Vuelve a su posición original */
+    }
+}
+
+/* Estilos para el encabezado */
+h1 {
+    color: #007bff; /* Color azul para el encabezado */
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Estilos para las etiquetas */
+label {
+    font-size: 1.1rem;
+    color: #333;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/* Estilos para el select */
+select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+
+/* Cambiar el color del borde al enfocar */
+select:focus {
+    border-color: #007bff;
+}
+
+/* Estilos para los inputs */
+input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus {
+    border-color: #007bff;
+}
+
+/* Estilos para el botón de calcular */
+button {
+    background-color: #007bff; /* Color azul del botón */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Cambiar el color del botón al hacer hover */
+button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de aumento */
+}
+
+/* Estilo para el resultado */
+#resultado {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilos para el botón de navegación (volver) */
+.navigation {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.navigation button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.navigation button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Efecto de aumento */
+}
+
+/* Ajustes responsivos */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    input[type="number"],
+    select {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+
+    .navigation button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}

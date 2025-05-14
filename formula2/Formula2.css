@@ -1,0 +1,127 @@
+/* Estilo general para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130vh;
+}
+
+/* Contenedor principal */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s forwards;
+}
+
+/* Encabezado del título */
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+/* Estilo para los inputs */
+input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* Cambia el color del borde cuando el input o select está activo */
+input[type="number"]:focus, select:focus {
+    border-color: #007bff;
+}
+
+/* Estilo para el select */
+select {
+    background-color: #f8f9fa;
+    color: #555;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Flecha personalizada para select */
+select::-ms-expand {
+    display: none;
+}
+
+/* Estilo para las etiquetas */
+label {
+    font-size: 1.1rem;
+    color: #555;
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+}
+
+/* Botón de cálculo */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+/* Cambiar el color del botón al hacer hover */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el resultado */
+#resultado {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilos para el botón de navegación (volver) */
+.navigation {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.navigation button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navigation button:hover {
+    background-color: #0056b3;
+}
+
+/* Animación fade-in */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

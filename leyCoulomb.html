@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ley de Coulomb</title>
+  <style>
+    body {
+      background-color: #f3f4f6;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      position: relative;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      color: #007bff;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-size: 1.1rem;
+      color: #333;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    input[type="number"], select {
+      width: calc(100% - 20px);
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #007bff;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .navigation {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .navigation button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .navigation button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="navigation">
+    <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+  </div>
+
+  <div class="container">
+    <h1>Ley de Coulomb</h1>
+    
+    <label for="seleccion">Selecciona una fórmula:</label>
+    <select id="seleccion" onchange="mostrarFormulario()">
+      <option value="">--Selecciona--</option>
+      <option value="fuerza">Fuerza entre dos cargas</option>
+      <option value="carga">Encontrar carga desconocida</option>
+      <option value="distancia">Encontrar distancia entre cargas</option>
+      <option value="superposicion">Principio de superposición de fuerzas</option>
+    </select>
+
+    <div id="formulario"></div>
+
+    <p id="resultado"></p>
+  </div>
+
+  <script>
+    const k = 8.9875e9; // Constante de Coulomb en N·m²/C²
+
+    function mostrarFormulario() {
+      const seleccion = document.getElementById("seleccion").value;
+      const form = document.getElementById("formulario");
+      form.innerHTML = "";
+      document.getElementById("resultado").innerText = "";
+
+      if (seleccion === "fuerza") {
+        form.innerHTML = `
+          <label for="q1">Carga 1 (C):</label>
+          <input type="number" id="q1">
+          <label for="q2">Carga 2 (C):</label>
+          <input type="number" id="q2">
+          <label for="r">Distancia (m):</label>
+          <input type="number" id="r">
+          <button onclick="calcularFuerza()">Calcular Fuerza</button>
+        `;
+      } else if (seleccion === "carga") {
+        form.innerHTML = `
+          <label for="f">Fuerza (N):</label>
+          <input type="number" id="f">
+          <label for="q">Carga conocida (C):</label>
+          <input type="number" id="q">
+          <label for="r">Distancia (m):</label>
+          <input type="number" id="r">
+          <button onclick="calcularCarga()">Calcular Carga</button>
+        `;
+      } else if (seleccion === "distancia") {
+        form.innerHTML = `
+          <label for="f">Fuerza (N):</label>
+          <input type="number" id="f">
+          <label for="q1">Carga 1 (C):</label>
+          <input type="number" id="q1">
+          <label for="q2">Carga 2 (C):</label>
+          <input type="number" id="q2">
+          <button onclick="calcularDistancia()">Calcular Distancia</button>
+        `;
+      } else if (seleccion === "superposicion") {
+        form.innerHTML = `
+          <label for="qA">Carga A (C):</label>
+          <input type="number" id="qA">
+          <label for="qB">Carga B (C):</label>
+          <input type="number" id="qB">
+          <label for="qC">Carga C (C):</label>
+          <input type="number" id="qC">
+          <label for="rAC">Distancia A-C (m):</label>
+          <input type="number" id="rAC">
+          <label for="rBC">Distancia B-C (m):</label>
+          <input type="number" id="rBC">
+          <button onclick="calcularSuperposicion()">Calcular Fuerza Total</button>
+        `;
+      }
+    }
+
+    function calcularFuerza() {
+      const q1 = parseFloat(document.getElementById("q1").value);
+      const q2 = parseFloat(document.getElementById("q2").value);
+      const r = parseFloat(document.getElementById("r").value);
+      const f = (k * q1 * q2) / (r * r);
+      document.getElementById("resultado").innerText = `Fuerza: ${f.toExponential(3)} N`;
+    }
+
+    function calcularCarga() {
+      const f = parseFloat(document.getElementById("f").value);
+      const q = parseFloat(document.getElementById("q").value);
+      const r = parseFloat(document.getElementById("r").value);
+      const qDesconocida = (f * r * r) / (k * q);
+      document.getElementById("resultado").innerText = `Carga desconocida: ${qDesconocida.toExponential(3)} C`;
+    }
+
+    function calcularDistancia() {
+      const f = parseFloat(document.getElementById("f").value);
+      const q1 = parseFloat(document.getElementById("q1").value);
+      const q2 = parseFloat(document.getElementById("q2").value);
+      const r = Math.sqrt((k * q1 * q2) / f);
+      document.getElementById("resultado").innerText = `Distancia: ${r.toFixed(3)} m`;
+    }
+
+    function calcularSuperposicion() {
+      const qA = parseFloat(document.getElementById("qA").value);
+      const qB = parseFloat(document.getElementById("qB").value);
+      const qC = parseFloat(document.getElementById("qC").value);
+      const rAC = parseFloat(document.getElementById("rAC").value);
+      const rBC = parseFloat(document.getElementById("rBC").value);
+
+      const fAC = (k * qA * qC) / (rAC * rAC);
+      const fBC = (k * qB * qC) / (rBC * rBC);
+
+      const fuerzaTotal = fAC + fBC;
+      document.getElementById("resultado").innerText = `Fuerza total sobre C: ${fuerzaTotal.toExponential(3)} N`;
+    }
+  </script>
+</body>
+</html>

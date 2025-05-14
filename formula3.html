@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Fuerza</title>
+    <link href="conversor de unidades/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="formula3/formula3.css">
+    <style>
+        /* Estilos básicos para la visibilidad */
+        .calculator {
+            display: none; /* Ocultar todas las calculadoras inicialmente */
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón para ir a la página de inicio -->
+    <div class="navigation">
+        <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+    </div><br>
+
+    <div class="container">
+        <h2>Seleccione el Cálculo</h2>
+        <select id="formulaSelector" onchange="mostrarCalculadora()">
+            <option value="">-- Seleccione una fórmula --</option>
+            <option value="f1">Cálculo de Fuerza F¹</option>
+            <option value="f2">Cálculo de Fuerza F²</option>
+            <option value="a1">Cálculo de Área A¹</option>
+            <option value="a2">Cálculo de Área A²</option>
+        </select>
+    </div>
+
+    <div id="fuerzaF1" class="container calculator">
+        <h2>Cálculo de Fuerza F¹</h2><br>
+        <h3>Fórmula: F¹ = (F² / A²) * A¹</h3><br>
+        <label for="fuerza2">Fuerza F² (N):</label>
+        <input id="fuerza2" type="number">
+        <label for="area1">Área A¹ (m²):</label>
+        <input id="area1" type="number">
+        <label for="area2">Área A² (m²):</label>
+        <input id="area2" type="number">
+        <button onclick="calcularF1()">Calcular F¹</button>
+        <p id="resultadoF1"></p>
+    </div>
+
+    <div id="fuerzaF2" class="container calculator">
+        <h2>Cálculo de Fuerza F²</h2><br>
+        <h3>Fórmula: F² = A² * (F¹ / A¹)</h3><br>
+        <label for="F1">Fuerza F¹ (N):</label>
+        <input id="F1" type="number">
+        <label for="A1">Área A¹ (m²):</label>
+        <input id="A1" type="number">
+        <label for="A2">Área A² (m²):</label>
+        <input id="A2" type="number">
+        <button onclick="calcularF2()">Calcular F²</button>
+        <p id="resultadoF2"></p>
+    </div>
+
+    <div id="areaA1" class="container calculator">
+        <h2>Cálculo de Área A¹</h2><br>
+        <h3>Fórmula: A¹ = F¹ / (F² / A²)</h3><br>
+        <label for="Fu1">Fuerza F¹ (N):</label>
+        <input id="Fu1" type="number">
+        <label for="Fu2">Fuerza F² (N):</label>
+        <input id="Fu2" type="number">
+        <label for="Ar2">Área A² (m²):</label>
+        <input id="Ar2" type="number">
+        <button onclick="calcularA1()">Calcular A¹</button>
+        <p id="resultadoA1"></p>
+    </div>
+
+    <div id="areaA2" class="container calculator">
+        <h2>Cálculo de Área A²</h2><br>
+        <h3>Fórmula: A² = A¹ * (F² / F¹)</h3><br>
+        <label for="Fo1">Fuerza F¹ (N):</label>
+        <input id="Fo1" type="number">
+        <label for="Fo2">Fuerza F² (N):</label>
+        <input id="Fo2" type="number">
+        <label for="Are1">Área A¹ (m²):</label>
+        <input id="Are1" type="number">
+        <button onclick="calcularA2()">Calcular A²</button>
+        <p id="resultadoA2"></p>
+    </div>
+
+    <script>
+        function mostrarCalculadora() {
+            var seleccion = document.getElementById("formulaSelector").value;
+            // Ocultar todas las calculadoras
+            var calculadoras = document.querySelectorAll('.calculator');
+            calculadoras.forEach(function (calculadora) {
+                calculadora.style.display = 'none';
+            });
+
+            // Mostrar la calculadora seleccionada
+            switch (seleccion) {
+                case "f1":
+                    document.getElementById("fuerzaF1").style.display = 'block';
+                    break;
+                case "f2":
+                    document.getElementById("fuerzaF2").style.display = 'block';
+                    break;
+                case "a1":
+                    document.getElementById("areaA1").style.display = 'block';
+                    break;
+                case "a2":
+                    document.getElementById("areaA2").style.display = 'block';
+                    break;
+            }
+        }
+
+        function calcularF1() {
+            var fuerza2 = parseFloat(document.getElementById("fuerza2").value);
+            var area1 = parseFloat(document.getElementById("area1").value);
+            var area2 = parseFloat(document.getElementById("area2").value);
+            if (!isNaN(fuerza2) && !isNaN(area1) && !isNaN(area2) && area2 !== 0) {
+                var fuerza1 = (fuerza2 / area2) * area1;
+                document.getElementById("resultadoF1").innerHTML = "Fuerza F¹ = " + fuerza1.toFixed(2) + " N";
+            } else {
+                document.getElementById("resultadoF1").innerHTML = "Por favor, ingrese valores válidos.";
+            }
+        }
+
+        function calcularF2() {
+            var F1 = parseFloat(document.getElementById("F1").value);
+            var A1 = parseFloat(document.getElementById("A1").value);
+            var A2 = parseFloat(document.getElementById("A2").value);
+            if (!isNaN(F1) && !isNaN(A1) && !isNaN(A2) && A1 !== 0) {
+                var F2 = (F1 / A1) * A2;
+                document.getElementById("resultadoF2").innerHTML = "Fuerza F² = " + F2.toFixed(2) + " N";
+            } else {
+                document.getElementById("resultadoF2").innerHTML = "Por favor, ingrese valores válidos.";
+            }
+        }
+
+        function calcularA1() {
+            var Fu1 = parseFloat(document.getElementById("Fu1").value);
+            var Fu2 = parseFloat(document.getElementById("Fu2").value);
+            var Ar2 = parseFloat(document.getElementById("Ar2").value);
+            if (!isNaN(Fu1) && !isNaN(Fu2) && !isNaN(Ar2) && Fu1 !== 0) {
+                var Ar1 = Fu2 / (Fu1 / Ar2);
+                document.getElementById("resultadoA1").innerHTML = "Área A¹ = " + Ar1.toFixed(2) + " m²";
+            } else {
+                document.getElementById("resultadoA1").innerHTML = "Por favor, ingrese valores válidos.";
+            }
+        }
+
+        function calcularA2() {
+            var Fo1 = parseFloat(document.getElementById("Fo1").value);
+            var Fo2 = parseFloat(document.getElementById("Fo2").value);
+            var Are1 = parseFloat(document.getElementById("Are1").value);
+            if (!isNaN(Fo1) && !isNaN(Fo2) && !isNaN(Are1) && Fo1 !== 0) {
+                var Are2 = (Fo2 / Fo1) * Are1;
+                document.getElementById("resultadoA2").innerHTML = "Área A² = " + Are2.toFixed(2) + " m²";
+            } else {
+                document.getElementById("resultadoA2").innerHTML = "Por favor, ingrese valores válidos.";
+            }
+        }
+    </script>
+</body>
+</html>

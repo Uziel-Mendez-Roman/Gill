@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="conversor de unidades/bootstrap.min.css">
+    <link rel="stylesheet" href="conversor de unidades/fa.css">
+    <link rel="stylesheet" href="conversor de unidades/stilo.css">
+    <title>Conversor de unidades</title>
+</head>
+<body>
+    <link rel="stylesheet" href="">
+<!-- Botón para ir a la página de inicio -->
+<div class="navigation">
+    <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+</div>
+    <div class="container-fluid">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h3>Breve explicaion para poder comenzar a convertir unidades:</h3>
+        <label for="">Primero debes escribir en el recuadro de abajo la cantidad y el tipo de unidad que quieras convertir deben de estar bien escrito el nombre de las unidades para que funcione</label>
+    </div>
+    <div class="row "><br>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+                
+                <input type="text" class="form-control" id="principal" placeholder="256 bits a megabytes"
+                       autocomplete="off">
+            </div>
+            <br>
+            <div class="alert" id="resultado">
+            </div>
+            <br>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ocultable" hidden="hidden">
+                <div class="row ">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="grupoUnidades">Unidad de medida</label>
+                            <select name="grupoUnidades" id="grupoUnidades" class="form-control"></select>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label for="primeraUnidad">De</label>
+                        <input id="inputPrimeraUnidad" type="text" class="form-control">
+                        <select name="primeraUnidad" id="primeraUnidad" class="form-control select"></select>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label for="segundaUnidad">A</label>
+                        <input id="inputSegundaUnidad" type="text" class="form-control">
+                        <select name="segundaUnidad" id="segundaUnidad" class="form-control"></select>
+                    </div>
+                </div>
+            </div>
+            <br><br><br>
+                    </div>
+                </div>
+            </div>
+
+<script type="text/javascript" src="conversor de unidades/jquery.js"></script>
+<script type="text/javascript" src="conversor de unidades/bootstrap.js"></script>
+<script type="text/javascript" src="conversor de unidades/unidades.js"></script>
+<script type="text/javascript" src="conversor de unidades/converor.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: 'Arial', sans-serif;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s forwards;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    height: 250px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Asegura que z-index funcione correctamente */
+    z-index: 1; /* Nivel inicial del contenedor */
+    margin-bottom: 30px; /* Espacio adicional entre imágenes */
+}
+
+.icon-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10; /* Eleva el contenedor al pasar el cursor */
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100; /* Asegura que siempre esté encima */
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.9rem;
+}
+
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.icon-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.formula-section {
+    background-color: #007bff;
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .icon-container {
+        margin-bottom: 20px; /* Espacio ajustado para pantallas más pequeñas */
+    }
+}

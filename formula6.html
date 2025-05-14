@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Fórmulas</title>
+    <link href="conversor de unidades/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="formula3/formula3.css">
+    <style>
+        .calculator {
+            display: none; /* Ocultar todas las calculadoras inicialmente */
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+    </div><br>
+
+    <div class="container">
+        <h2>Seleccione el Cálculo</h2>
+        <select id="formulaSelector" onchange="mostrarCalculadora()">
+            <option value="">-- Seleccione una fórmula --</option>
+            <option value="f1">Cálculo de Área A²</option>
+            <option value="f2">Cálculo de Velocidad V¹</option>
+            <option value="a1">Cálculo de Velocidad V²</option>
+            <option value="a2">Cálculo de Área A¹</option>
+        </select>
+    </div>
+
+    <!-- Calculadora 1 -->
+    <div id="f1" class="container calculator">
+        <h2>Cálculo de Área A²</h2><br>
+        <h3>Fórmula: A² = (A¹ * V¹) / V²</h3><br>
+        <label for="area1_f1">Área A¹ (m²):</label>
+        <input id="area1_f1" type="number">
+        <label for="velocidad1_f1">Velocidad V¹ (m/s):</label>
+        <input id="velocidad1_f1" type="number">
+        <label for="velocidad2_f1">Velocidad V² (m/s):</label>
+        <input id="velocidad2_f1" type="number">
+        <button onclick="calcularArea2()">Calcular A²</button>
+        <p id="resultadoA2"></p>
+    </div>
+
+    <!-- Calculadora 2 -->
+    <div id="f2" class="container calculator">
+        <h2>Cálculo de Velocidad V¹</h2><br>
+        <h3>Fórmula: V¹ = (A² * V²) / A¹</h3><br>
+        <label for="area2_f2">Área A² (m²):</label>
+        <input id="area2_f2" type="number">
+        <label for="velocidad2_f2">Velocidad V² (m/s):</label>
+        <input id="velocidad2_f2" type="number">
+        <label for="area1_f2">Área A¹ (m²):</label>
+        <input id="area1_f2" type="number">
+        <button onclick="calcularVelocidad1()">Calcular V¹</button>
+        <p id="resultadoV1"></p>
+    </div>
+
+    <!-- Calculadora 3 -->
+    <div id="a1" class="container calculator">
+        <h2>Cálculo de Velocidad V²</h2><br>
+        <h3>Fórmula: V² = (A¹ * V¹) / A²</h3><br>
+        <label for="area1_a1">Área A¹ (m²):</label>
+        <input id="area1_a1" type="number">
+        <label for="velocidad1_a1">Velocidad V¹ (m/s):</label>
+        <input id="velocidad1_a1" type="number">
+        <label for="area2_a1">Área A² (m²):</label>
+        <input id="area2_a1" type="number">
+        <button onclick="calcularVelocidad2()">Calcular V²</button>
+        <p id="resultadoV2"></p>
+    </div>
+
+    <!-- Calculadora 4 -->
+    <div id="a2" class="container calculator">
+        <h2>Cálculo de Área A¹</h2><br>
+        <h3>Fórmula: A¹ = (A² * V²) / V¹</h3><br>
+        <label for="area2_a2">Área A² (m²):</label>
+        <input id="area2_a2" type="number">
+        <label for="velocidad2_a2">Velocidad V² (m/s):</label>
+        <input id="velocidad2_a2" type="number">
+        <label for="velocidad1_a2">Velocidad V¹ (m/s):</label>
+        <input id="velocidad1_a2" type="number">
+        <button onclick="calcularAreaVelocidades()">Calcular A¹</button>
+        <p id="resultadoA1"></p>
+    </div>
+
+    <script>
+        function mostrarCalculadora() {
+            var seleccion = document.getElementById("formulaSelector").value;
+            var calculadoras = document.querySelectorAll('.calculator');
+            calculadoras.forEach(calculadora => calculadora.style.display = 'none');
+            if (seleccion) document.getElementById(seleccion).style.display = 'block';
+        }
+
+        function calcularArea2() {
+            var area1 = parseFloat(document.getElementById("area1_f1").value);
+            var velocidad1 = parseFloat(document.getElementById("velocidad1_f1").value);
+            var velocidad2 = parseFloat(document.getElementById("velocidad2_f1").value);
+            if (!area1 || !velocidad1 || !velocidad2) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+            var area2 = (area1 * velocidad1) / velocidad2;
+            document.getElementById("resultadoA2").innerHTML = "Área A² = " + area2.toFixed(2) + " m²";
+        }
+
+        function calcularVelocidad1() {
+            var area2 = parseFloat(document.getElementById("area2_f2").value);
+            var velocidad2 = parseFloat(document.getElementById("velocidad2_f2").value);
+            var area1 = parseFloat(document.getElementById("area1_f2").value);
+            if (!area2 || !velocidad2 || !area1) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+            var velocidad1 = (area2 * velocidad2) / area1;
+            document.getElementById("resultadoV1").innerHTML = "Velocidad V¹ = " + velocidad1.toFixed(2) + " m/s";
+        }
+
+        function calcularVelocidad2() {
+            var area1 = parseFloat(document.getElementById("area1_a1").value);
+            var velocidad1 = parseFloat(document.getElementById("velocidad1_a1").value);
+            var area2 = parseFloat(document.getElementById("area2_a1").value);
+            if (!area1 || !velocidad1 || !area2) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+            var velocidad2 = (area1 * velocidad1) / area2;
+            document.getElementById("resultadoV2").innerHTML = "Velocidad V² = " + velocidad2.toFixed(2) + " m/s";
+        }
+
+        function calcularAreaVelocidades() {
+            var area2 = parseFloat(document.getElementById("area2_a2").value);
+            var velocidad2 = parseFloat(document.getElementById("velocidad2_a2").value);
+            var velocidad1 = parseFloat(document.getElementById("velocidad1_a2").value);
+            if (!area2 || !velocidad2 || !velocidad1) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+            var area1 = (area2 * velocidad2) / velocidad1;
+            document.getElementById("resultadoA1").innerHTML = "Área A¹ = " + area1.toFixed(2) + " m²";
+        }
+    </script>
+</body>
+</html>

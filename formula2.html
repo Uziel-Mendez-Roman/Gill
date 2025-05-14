@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo del Modelo de Young</title>
+    <link rel="stylesheet" href="formula2/Formula2.css">
+</head>
+<body>
+    <div class="navigation">
+        <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+    </div><br><br>
+
+    <!-- Selección de Fórmula -->
+    <div class="container">
+        <h2>Seleccione una Fórmula</h2>
+        <select id="formula-select" onchange="mostrarFormulario()">
+            <option value="">Seleccione...</option>
+            <option value="formula1">ΔL = (F * L) / (A * E)</option>
+            <option value="formula2">Y = (F / A) / (ΔL / Δ)</option>
+            <option value="formula3">E = F / A</option>
+            <option value="formula4">Deformación = ΔL / Δ</option>
+        </select>
+    </div>
+
+    <!-- Fórmula 1 -->
+    <div id="formula1" class="container formula" style="display:none;">
+        <h2>Cálculo de ΔL</h2>
+        <label for="fuerza">Fuerza (F) en N:</label>
+        <input id="fuerza" type="number">
+        <label for="longitud">Longitud inicial (L) en m:</label>
+        <input id="longitud" type="number">
+        <label for="area">Área de sección (A) en m²:</label>
+        <input id="area" type="number">
+        <label for="modulo-young">Módulo de Young (E) en Pa:</label>
+        <input id="modulo-young" type="number">
+        <button onclick="calcularDeltaL()">Calcular ΔL</button>
+        <p id="resultado-delta-l"></p>
+    </div>
+
+    <!-- Fórmula 2 -->
+    <div id="formula2" class="container formula" style="display:none;">
+        <h2>Cálculo de Y</h2>
+        <label for="fuerza2">Fuerza (F) en N:</label>
+        <input id="fuerza2" type="number">
+        <label for="area2">Área de sección (A) en m²:</label>
+        <input id="area2" type="number">
+        <label for="longitud2">Cambio de Longitud (ΔL):</label>
+        <input id="longitud2" type="number">
+        <label for="modulo-young2">Delta (Δ):</label>
+        <input id="modulo-young2" type="number">
+        <button onclick="calcularY()">Calcular Y</button>
+        <p id="resultado-de-Y"></p>
+    </div>
+
+    <!-- Fórmula 3 -->
+    <div id="formula3" class="container formula" style="display:none;">
+        <h2>Cálculo de E</h2>
+        <label for="fuerza3">Fuerza (F) en N:</label>
+        <input id="fuerza3" type="number">
+        <label for="area3">Área de sección (A) en m²:</label>
+        <input id="area3" type="number">
+        <button onclick="calcularE()">Calcular E</button>
+        <p id="resultado-de-E"></p>
+    </div>
+
+    <!-- Fórmula 4 -->
+    <div id="formula4" class="container formula" style="display:none;">
+        <h2>Cálculo de Deformación</h2>
+        <label for="longitud3">Cambio de Longitud (ΔL):</label>
+        <input id="longitud3" type="number">
+        <label for="modulo-young3">Delta (Δ):</label>
+        <input id="modulo-young3" type="number">
+        <button onclick="calcularD()">Calcular Deformación</button>
+        <p id="resultado-de-D"></p>
+    </div>
+
+    <script>
+        function mostrarFormulario() {
+            var seleccion = document.getElementById("formula-select").value;
+            var formulas = document.getElementsByClassName("formula");
+            for (var i = 0; i < formulas.length; i++) {
+                formulas[i].style.display = "none";
+            }
+            if (seleccion) {
+                document.getElementById(seleccion).style.display = "block";
+            }
+        }
+
+        function calcularDeltaL() {
+            var fuerza = parseFloat(document.getElementById("fuerza").value);
+            var longitud = parseFloat(document.getElementById("longitud").value);
+            var area = parseFloat(document.getElementById("area").value);
+            var moduloYoung = parseFloat(document.getElementById("modulo-young").value);
+            var deltaL = (fuerza * longitud) / (area * moduloYoung);
+            document.getElementById("resultado-delta-l").innerHTML = "ΔL = " + deltaL + " m";
+        }
+
+        function calcularY() {
+            var fuerza2 = parseFloat(document.getElementById("fuerza2").value);
+            var longitud2 = parseFloat(document.getElementById("longitud2").value);
+            var area2 = parseFloat(document.getElementById("area2").value);
+            var moduloYoung2 = parseFloat(document.getElementById("modulo-young2").value);
+            var Y = (fuerza2 / area2) / (longitud2 / moduloYoung2);
+            document.getElementById("resultado-de-Y").innerHTML = "Young (Y) = " + Y;
+        }
+
+        function calcularE() {
+            var fuerza3 = parseFloat(document.getElementById("fuerza3").value);
+            var area3 = parseFloat(document.getElementById("area3").value);
+            var E = (fuerza3 / area3);
+            document.getElementById("resultado-de-E").innerHTML = "Esfuerzo (E) = " + E;
+        }
+
+        function calcularD() {
+            var longitud3 = parseFloat(document.getElementById("longitud3").value);
+            var moduloYoung3 = parseFloat(document.getElementById("modulo-young3").value);
+            var D = (longitud3 / moduloYoung3);
+            document.getElementById("resultado-de-D").innerHTML = "Deformación (D) = " + D;
+        }
+    </script>
+</body>
+</html>
